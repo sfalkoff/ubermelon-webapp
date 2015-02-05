@@ -34,10 +34,23 @@ def shopping_cart():
     list held in the session that contains all the melons to be added. Check
     accompanying screenshots for details."""
 
+    # our cart in our session - a list of melons
     melons_in_cart = session['cart']
+    
+    # where we put unique melon types and counts of each the customer has
     melon_details = []
+    
+    # iterate over the cart and count the amounts
     for melon in melons_in_cart:
-        melon_details.append(model.get_melon_by_id(melons_in_cart[melon]))
+
+        melon_object = model.get_melon_by_id(melons_in_cart[melon])
+        
+        if melon in melon_details:  
+        # print melon_object
+            melon_details
+        else:   
+            melon_details.append([melon_object, 1])
+
     return render_template("cart.html", melon_details = melon_details)
 
 @app.route("/add_to_cart/<int:id>")
