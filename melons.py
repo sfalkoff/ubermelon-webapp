@@ -43,11 +43,20 @@ def add_to_cart(id):
     Intended behavior: when a melon is added to a cart, redirect them to the
     shopping cart page, while displaying the message
     "Successfully added to cart" """
+    
+    #if there is no cart, create cart 
+    melon = model.get_melon_by_id(id)
+    melon_name = melon.common_name  
+    if 'cart' not in session:
+        session['cart'] = []
+    #add item to cart
+    session['cart'].append(id) 
+    
+    flash('You just added %s to your cart.'% melon_name) 
+    return render_template("cart.html")
 
-    return "Oops! This needs to be implemented!"
 
-
-@app.route("/login", methods=["GET"])
+@app.route("/login", methods=['GET'])
 def show_login():
     return render_template("login.html")
 
@@ -56,7 +65,10 @@ def show_login():
 def process_login():
     """TODO: Receive the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session."""
-    return "Oops! This needs to be implemented"
+    session['email'] = request.form['email']
+    if 'email' in session:
+        flash('You are logged in as %s' % session['email'])
+    return redirect(url_for('index'))
 
 
 @app.route("/checkout")
