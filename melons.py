@@ -33,7 +33,12 @@ def shopping_cart():
     """TODO: Display the contents of the shopping cart. The shopping cart is a
     list held in the session that contains all the melons to be added. Check
     accompanying screenshots for details."""
-    return render_template("cart.html")
+
+    melons_in_cart = session['cart']
+    melon_details = []
+    for melon in melons_in_cart:
+        melon_details.append(model.get_melon_by_id(melons_in_cart[melon]))
+    return render_template("cart.html", melon_details = melon_details)
 
 @app.route("/add_to_cart/<int:id>")
 def add_to_cart(id):
