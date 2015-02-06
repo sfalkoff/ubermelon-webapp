@@ -83,9 +83,12 @@ def process_login():
     """TODO: Receive the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session."""
     session['email'] = request.form['email']
+    session['password'] = request.form['password']
+    session['name'] = request.form['name']
+
     if 'email' in session:
-        flash('You are logged in as %s' % session['email'])
-    return redirect(url_for('index'))
+        flash('Hi %s, you are logged in.' % session['name'])
+    return redirect("/melons")
 
 @app.route("/checkout")
 def checkout():
