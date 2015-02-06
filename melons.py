@@ -54,16 +54,20 @@ def add_to_cart(id):
 
     if 'cart' not in session:
         session['cart'] = []
+    
+    total = 0
+    for a_melon_list in session['cart']:
+        total = total + a_melon_list[2]
+
     for a_melon_list in session['cart']:
         if a_melon_list[0] == melon_name:
             a_melon_list[1] = a_melon_list[1] + 1
             flash('You just incremented the quantity of %s in your cart.'% melon_name) 
-            print "All the melons in our cart ", session['cart']
-            return render_template("cart.html", melons_in_cart=session['cart'])
+            return render_template("cart.html", melons_in_cart=session['cart'], total=total)
 
     session['cart'].append([melon_name, 1, melon_price]) 
     flash('You just added %s to your cart.'% melon_name) 
-    return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price)
+    return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price, total=total)
 
     
         

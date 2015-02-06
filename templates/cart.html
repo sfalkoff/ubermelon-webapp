@@ -2,7 +2,7 @@
 {% block body %}
 <table class="table table-striped">
     <tr><th>Melon Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
-
+    
     {% for melon in melons_in_cart %}
         <tr>
             <td>  {{ melon[0] }} </td>
@@ -12,8 +12,13 @@
         </tr>
     {% endfor %}
 
-   
 </table>
-<h3>Total: TBD </h3>
+{% if total is defined %}
+<h3> Total: {{total}} </h3>
+
+{%else %}
+<h3> Total: $0.00 </h3>
+{% endif %}
 <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
+
 {% endblock %}
