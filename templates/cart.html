@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
 <table class="table table-striped">
-    {% for melon in melon_details %}
-        <tr><td> {{ melon.common_name }} </td><td>1</td><td> ${{ melon.price }} </td><td>$?.00</td></tr>
+    <tr><th>Melon Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
+
+    {% for melon in melons_in_cart %}
+        <tr><td> {{ melon_name }} </td><td>1</td><td> ${{ melon_price }} </td><td>$TBD</td></tr>
     {% endfor %}
+
+   
 </table>
 <h3>Total: $27.00</h3>
 <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
