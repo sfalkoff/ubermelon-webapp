@@ -79,8 +79,9 @@ def show_login():
 
 @app.route("/logout")
 def process_logout():
-    session.pop('name', None)
-    session.pop('email', None)
+    del session['name']
+    del session['email']
+
     # session["__invalidate__"] = True
     return redirect(url_for('index'))
 

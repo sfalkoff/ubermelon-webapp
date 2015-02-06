@@ -12,7 +12,8 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/cart"><img class="melon-cart" src="/static/img/watermelon.png"> My Melon Cart</a></li>
-                        {% if true %}
+                        {% if 'name' in session %}
+                            {{ session['name'] }}
                             <li><a href="/logout">Log Out</a></li>
                         {% else %}
                             <li><a href="/login">Log In</a></li>
