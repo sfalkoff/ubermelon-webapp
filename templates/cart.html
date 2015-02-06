@@ -4,7 +4,7 @@
     <tr><th>Melon Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
 
     {% for melon in melons_in_cart %}
-        <tr><td> {{ melon_name }} </td><td>1</td><td> ${{ melon_price }} </td><td>$TBD</td></tr>
+        <tr><td> {{ melon[0] }} </td><td>1</td><td> ${{ melon[2] }} </td><td>${{ melon[1] }}</td></tr>
     {% endfor %}
 
    

@@ -49,36 +49,22 @@ def add_to_cart(id):
     "Successfully added to cart" """
 
     melon = model.get_melon_by_id(id)
-    # print "I am melon: ", melon
-
     melon_name = melon.common_name
-    # print "I am melon_name: ", melon_name
-  
     melon_price = melon.price
-    # print "I am melon_price: ", melon_price
 
-    #if there is no cart, create a cart 
     if 'cart' not in session:
         session['cart'] = []
-        # print "I am the empty session cart ", session['cart']
-    #loop through session['cart']
     for a_melon_list in session['cart']:
-        #if index at 0 is the melon name:
         if a_melon_list[0] == melon_name:
-            #increment item at index 1 by 1
             a_melon_list[1] = a_melon_list[1] + 1
-            # print "I am the session cart with duplicates", session['cart']
-    #else add melon to cart
-    else:
-        session['cart'].append([melon_name, 1, melon_price]) 
-        # print "I am the session cart with no duplicates" 
+            flash('You just added %s to your cart.'% melon_name) 
+            return render_template("cart.html", melons_in_cart=session['cart'])
 
-
+    session['cart'].append([melon_name, 1, melon_price]) 
     flash('You just added %s to your cart.'% melon_name) 
-    melons_in_cart = session['cart']
-    # print "I am melons_in_cart ", melons_in_cart
+    return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price)
 
-    return render_template("cart.html", melons_in_cart=melons_in_cart, melon_name=melon_name, melon_price=melon_price)
+    
         
 
 @app.route("/login", methods=['GET'])
