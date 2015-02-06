@@ -37,7 +37,11 @@ def shopping_cart():
     if 'cart' not in session:
         session['cart'] = []
     melons_in_cart = session['cart']
-    return render_template("cart.html", melons_in_cart = melons_in_cart)
+    total = 0
+    if len(session['cart']) > 0:
+        for a_melon_list in session['cart']:
+            total = total + a_melon_list[2]
+    return render_template("cart.html", melons_in_cart = melons_in_cart, total=total)
 
 @app.route("/add_to_cart/<int:id>")
 def add_to_cart(id):
@@ -56,8 +60,9 @@ def add_to_cart(id):
         session['cart'] = []
     
     total = 0
-    for a_melon_list in session['cart']:
-        total = total + a_melon_list[2]
+    if len(session['cart']) > 0:
+        for a_melon_list in session['cart']:
+            total = total + a_melon_list[2]
 
     for a_melon_list in session['cart']:
         if a_melon_list[0] == melon_name:
@@ -68,9 +73,6 @@ def add_to_cart(id):
     session['cart'].append([melon_name, 1, melon_price]) 
     flash('You just added %s to your cart.'% melon_name) 
     return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price, total=total)
-
-    
-        
 
 @app.route("/login", methods=['GET'])
 def show_login():
@@ -85,7 +87,6 @@ def process_login():
     if 'email' in session:
         flash('You are logged in as %s' % session['email'])
     return redirect(url_for('index'))
-
 
 @app.route("/checkout")
 def checkout():
