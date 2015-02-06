@@ -37,11 +37,8 @@ def shopping_cart():
     if 'cart' not in session:
         session['cart'] = []
     melons_in_cart = session['cart']
-    total = 0
-    if len(session['cart']) > 0:
-        for a_melon_list in session['cart']:
-            total = total + a_melon_list[2]
-    return render_template("cart.html", melons_in_cart = melons_in_cart, total=total)
+    
+    return render_template("cart.html", melons_in_cart = melons_in_cart, total=get_total())
 
 @app.route("/add_to_cart/<int:id>")
 def add_to_cart(id):
@@ -59,20 +56,22 @@ def add_to_cart(id):
     if 'cart' not in session:
         session['cart'] = []
     
-    total = 0
-    if len(session['cart']) > 0:
-        for a_melon_list in session['cart']:
-            total = total + a_melon_list[2]
-
     for a_melon_list in session['cart']:
         if a_melon_list[0] == melon_name:
             a_melon_list[1] = a_melon_list[1] + 1
             flash('You just incremented the quantity of %s in your cart.'% melon_name) 
-            return render_template("cart.html", melons_in_cart=session['cart'], total=total)
+            return render_template("cart.html", melons_in_cart=session['cart'], total=get_total())
 
     session['cart'].append([melon_name, 1, melon_price]) 
     flash('You just added %s to your cart.'% melon_name) 
-    return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price, total=total)
+    return render_template("cart.html", melons_in_cart=session['cart'], melon_name=melon_name, melon_price=melon_price, total=get_total())
+
+def get_total():
+    total = 0
+    if len(session['cart']) > 0:
+        for a_melon_list in session['cart']:
+            total = total + (a_melon_list[2] * a_melon_list[1])
+    return total
 
 @app.route("/login", methods=['GET'])
 def show_login():
