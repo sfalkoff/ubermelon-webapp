@@ -77,6 +77,12 @@ def get_total():
 def show_login():
     return render_template("login.html")
 
+@app.route("/logout")
+def process_logout():
+    session.pop('name', None)
+    session.pop('email', None)
+    # session["__invalidate__"] = True
+    return redirect(url_for('index'))
 
 @app.route("/login", methods=["POST"])
 def process_login():
