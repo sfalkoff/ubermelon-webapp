@@ -57,7 +57,8 @@ def add_to_cart(id):
     for a_melon_list in session['cart']:
         if a_melon_list[0] == melon_name:
             a_melon_list[1] = a_melon_list[1] + 1
-            flash('You just added %s to your cart.'% melon_name) 
+            flash('You just incremented the quantity of %s in your cart.'% melon_name) 
+            print "All the melons in our cart ", session['cart']
             return render_template("cart.html", melons_in_cart=session['cart'])
 
     session['cart'].append([melon_name, 1, melon_price]) 
