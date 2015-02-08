@@ -14,7 +14,7 @@ source env/bin/activate
 
 Use pip to install the packages required in requirements.txt: 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 Start the application by running:
