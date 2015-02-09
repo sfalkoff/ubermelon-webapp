@@ -1,4 +1,4 @@
-Getting Set Up
+To Explore This App:
 --------------
 
 Clone this repository: 
